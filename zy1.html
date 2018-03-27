@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.11.3.min.js"></script>
+		<style>
+			body{
+				margin: 0;
+				width:66.667vw;
+				height:66.667vh;
+				overflow: hidden;
+			}
+			.ii{width:100%;height:100%;margin: 0;position: relative;transform-style:preserve-3d;}
+			.ii>div{background: url(img/timg.jpg) no-repeat;background-size:100% 100%;height: 100%;width: 100%;position: absolute;transition: transform 1.5s;}
+		</style>
+	</head>
+	<body>
+		<div class="ii">
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var h=$(window).height();
+		var w=$(window).width();
+		var ss=6;
+		var sl=360/ss;
+		var trz=parseInt(h*0.575);
+		
+		for(var i=0;i<ss;i++){
+			var ll=i*sl
+			$("<div class='mokuai'></div>").css({
+				"transform":"rotateX("+ll+"deg) translateZ("+trz+"px)",
+				"cursor":"pointer",
+			}).appendTo(".ii")
+		}
+		
+		$('.ii').css({
+			'perspective':(trz*3)+'px',
+		});
+		
+		$(window).resize(function(){
+			
+		
+		trz=parseInt(h*0.575);
+		h=$(window).height();
+		w=$(window).width();
+		
+		$('.ii').css({
+			'perspective':(trz*3)+'px',
+		});
+		$('body').css({'marginTop':h*(1/6)+'px','marginLeft':w*(1/6)+'px'});
+		$(".ii .mokuai").each(function(i){
+			var ll=i*sl
+			this.css({
+				"transform":"rotateX("+ll+"deg) translateZ("+trz+"px)",
+				"cursor":"pointer",
+			});
+		 });
+		
+		
+	})
+	var m=0
+	
+	$(document).click(function(e){
+			var yy = e.originalEvent.y || e.originalEvent.layerY || 0; 
+			if(yy>h/2){
+			m++
+			}else{
+			m--
+			}
+
+			$(".ii .mokuai").each(function(i){
+				var ll=m*sl+i*sl
+				$(this).css({
+					"transform":"rotateX("+ll+"deg) translateZ(544px)",
+					"cursor":"pointer",
+				})
+			})
+		})
+	$(document).mousemove(function(e){
+			var yy = e.originalEvent.y || e.originalEvent.layerY || 0;
+			if(yy>h/2){
+			}else{
+			}
+		})
+		
+	</script>
+</html>
